@@ -16,9 +16,11 @@ matrix:
       env: COMPOSER_EXTRAS='symfony/event-dispatcher ^3.4 symfony/contracts ^2.0'
     - php: 7.3
     - php: 7.4
+    - php: nightly # PHP 8
     - php: 7.4
       env: DEPENDENCIES='dev'
   allow_failures:
+    - php: nightly
     - env: DEPENDENCIES='dev'
   fast_finish: true
 
@@ -33,7 +35,7 @@ install:
 
 script:
    - bin/phpspec run --format=dot
-   - ./vendor/bin/phpunit -v
+   - ./vendor/bin/simple-phpunit -v
    - ./vendor/bin/behat --format=progress
    - composer config platform.php 7.3.0
    - ln -s `which composer` composer.phar
